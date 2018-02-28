@@ -92,7 +92,7 @@ chord_composer:
   # 並擊完成後套用的式樣
   output_format:
     # 追加隔音符
-    - xform/^([bpmfdtnlghkwjzsc]|gw|kw|)(aa|a|jyu|u|i|o|oe|eo|e)(ng?|m|k|t|p|)$/$1$2$3'/
+    - xform/^([bpmfdtnlghkwjzsc]|gw|kw|ng|)(aa|a|jyu|u|i|o|oe|eo|e)(ng?|m|k|t|p|i|u|)$/$1$2$3'/
     # 消除不構成合法音節的並擊組合
     - "erase/^([A-Za-z]+)$/"
   # 並擊過程中套用的式樣
