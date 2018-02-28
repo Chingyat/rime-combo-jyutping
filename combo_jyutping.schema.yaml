@@ -1,0 +1,112 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: combo_jyutping
+  name: 宮保粤拼
+  version: "0.0.1"
+  description: |
+    並擊輸入粤音
+    https://zhuanlan.zhihu.com/p/34049407?group_id=952115850191392768
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: simplification
+    states: [ 漢字, 汉字 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - chord_composer  # 實現並擊按鍵處理
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+editor:
+  bindings:
+    BackSpace: back_syllable
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - erase/^xx$/
+    - xform/oe/eo/
+
+chord_composer:
+  # 字母表，包含用於並擊的按鍵
+  # 擊鍵雖有先後，形成並擊時，一律以字母表順序排列
+  alphabet: "swxdecfrvgtbnjum ki,lo."
+  # 拼寫運算規則，將一組並擊編碼轉換爲拼音音節
+  algebra:
+    # 先將物理按鍵字符對應到宮保拼音鍵位中的拼音字母
+    - 'xlit|swxdecfrvgtbnjum ki,lo.|sczhlfgdbktpRiuVaUIYNGM|'
+    # 以下根據宮保拼音的鍵位分別變換聲母、韻母部分
+    # 組合聲母
+    - xform/^zf/gw/
+    - xform/^cl/kw/
+    - xform/^fb/m/
+    - xform/^ld/n/
+    - xform/^hg/ng/
+    - xform/^gk/j/
+    - xform/^sh/w/
+    - xform/Vi$/eoi/
+    - xform/IG$/K/
+    - xform/UN$/T/
+    - xform/YM$/P/
+    - xform/ua/o/
+    - xform/ia/e/
+    - xform/Va/eo/
+    - xform/^Y$/aa/
+    - xform/^([cldtshgkzfbpjnmw]|gw|kw|)([IUYGNM]|IG|UN|IM|)$/$1aa$2/
+    - xform/G$/ng/
+    - xlit/NMIUYKTP/nmiuiktp/
+    - xform/V/yu/
+    - xform/^u/wu/
+    - xform/^yu/jyu/
+    - xform/^i/ji/
+  # 並擊完成後套用的式樣
+  output_format:
+    # 追加隔音符
+    - xform/^([dt])(aang?|aaa[uikmp]|in)
+    - xform/^([wtsdfghjklzcbnm]?)([aeiouy]+)([tkpnm]|ng)$/$1$2$3'/
+    # 消除不構成合法音節的並擊組合
+    - "erase/^([A-Za-z]+)$/"
+  # 並擊過程中套用的式樣
+  prompt_format:
+    # 加方括弧
+    - "xform/^(.*)$/[$1]/"
+
+translator:
+  dictionary: jyutping
+  prism: combo_jyutping
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
