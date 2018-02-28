@@ -4,6 +4,9 @@
 schema:
   schema_id: combo_jyutping
   name: 宮保粤拼
+  author:
+    - 东南西北
+    - Chingyat (Lince) <tsingyat@outlook.com>
   version: "0.0.1"
   description: |
     並擊輸入粤音
