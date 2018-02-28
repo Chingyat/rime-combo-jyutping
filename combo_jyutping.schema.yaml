@@ -78,6 +78,7 @@ chord_composer:
     - xform/ua/o/
     - xform/ia/e/
     - xform/Va/eo/
+    - xform/^a$/ /
     - xform/^Y$/aa/
     - xform/^([cldtshgkzfbpjnmw]|gw|kw|)([IUYGNM]|IG|UN|IM|)$/$1aa$2/
     - xform/G$/ng/
@@ -86,6 +87,8 @@ chord_composer:
     - xform/^u/wu/
     - xform/^yu/jyu/
     - xform/^i/ji/
+    - xform/^ma$/m/
+    - xform/^nga$/ng/
   # 並擊完成後套用的式樣
   output_format:
     # 追加隔音符
