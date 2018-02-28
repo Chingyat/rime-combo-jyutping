@@ -94,6 +94,7 @@ chord_composer:
     - xform/^nga$/ng/
   # 並擊完成後套用的式樣
   output_format:
+    - erase/^[iu]/
     # 追加隔音符
     - xform/^([bpmfdtnlghkwjzsc]|gw|kw|ng|)(aa|a|jyu|u|i|o|oe|eo|e)(ng?|m|k|t|p|i|u|)$/$1$2$3'/
     # 消除不構成合法音節的並擊組合
