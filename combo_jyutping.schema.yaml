@@ -79,7 +79,7 @@ chord_composer:
     - xform/Va/eo/
     - xform/^a$/ /
     - xform/^Y$/aa/
-    - xform/^([cldtshgkzfbpjnmw]|gw|kw|ng|)([IUYGNM]|IG|UN|IM|)$/$1aa$2/
+    - xform/^([cldtshgkzfbpjnmw]|gw|kw|ng|)([IUYGNMKPT]?)$/$1aa$2/
     - xform/G$/ng/
     - xlit/NMIUYKTP/nmiuiktp/
     - xform/eo(ng|k)/oe$1/
